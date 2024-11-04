@@ -2,6 +2,7 @@ package com.doosane.myselectshop.entity;
 
 import com.doosane.myselectshop.dto.ProductMypriceRequestDto;
 import com.doosane.myselectshop.dto.ProductRequestDto;
+import com.doosane.myselectshop.naver.dto.ItemDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,4 +45,7 @@ public class Product extends Timestamped {
         this.myprice = requestDto.getMyprice();
     }
 
+    public void updateByItemDto(ItemDto itemDto) {
+        this.lprice = itemDto.getLprice();
+    }
 }

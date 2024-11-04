@@ -1,9 +1,10 @@
-package com.doosane.myselectshop.naver.service;
+package com.doosane.myselectshop.service;
 
 import com.doosane.myselectshop.dto.ProductMypriceRequestDto;
 import com.doosane.myselectshop.dto.ProductRequestDto;
 import com.doosane.myselectshop.dto.ProductResponseDto;
 import com.doosane.myselectshop.entity.Product;
+import com.doosane.myselectshop.naver.dto.ItemDto;
 import com.doosane.myselectshop.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -51,5 +52,13 @@ public class ProductService {
         }
 
         return responseDtoList;
+    }
+
+    @Transactional
+    public void updateBySearch(Long id, ItemDto itemDto) {
+        Product product = productRepository.findById(id).orElseThrow(() ->
+                new NullPointerException("해당 상품은 존재하지 않습니다.")
+        );
+        product.updateByItemDto(itemDto);
     }
 }

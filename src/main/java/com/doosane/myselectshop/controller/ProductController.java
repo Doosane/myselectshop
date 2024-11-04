@@ -3,7 +3,7 @@ package com.doosane.myselectshop.controller;
 import com.doosane.myselectshop.dto.ProductMypriceRequestDto;
 import com.doosane.myselectshop.dto.ProductRequestDto;
 import com.doosane.myselectshop.dto.ProductResponseDto;
-import com.doosane.myselectshop.naver.service.ProductService;
+import com.doosane.myselectshop.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
