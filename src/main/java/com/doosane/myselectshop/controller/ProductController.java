@@ -1,13 +1,11 @@
 package com.doosane.myselectshop.controller;
 
+import com.doosane.myselectshop.dto.ProductMypriceRequestDto;
 import com.doosane.myselectshop.dto.ProductRequestDto;
 import com.doosane.myselectshop.dto.ProductResponseDto;
 import com.doosane.myselectshop.naver.service.ProductService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RequestMapping("/api")
@@ -22,5 +20,10 @@ public class ProductController {
         return productService.createProduct(requestDto);
     }
 
+    @PutMapping("/products/{id}")
+    public ProductResponseDto updateProduct(@PathVariable Long id, @RequestBody ProductMypriceRequestDto requestDto) {
+
+        return productService.updateProduct(id, requestDto);
+    }
 
 }
