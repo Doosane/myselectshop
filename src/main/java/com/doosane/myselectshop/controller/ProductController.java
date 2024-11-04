@@ -7,6 +7,8 @@ import com.doosane.myselectshop.naver.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RequestMapping("/api")
 @RestController
@@ -24,6 +26,11 @@ public class ProductController {
     public ProductResponseDto updateProduct(@PathVariable Long id, @RequestBody ProductMypriceRequestDto requestDto) {
 
         return productService.updateProduct(id, requestDto);
+    }
+
+    @GetMapping("/products")
+    public List<ProductResponseDto> getProducts() {
+        return productService.getProducts();
     }
 
 }
