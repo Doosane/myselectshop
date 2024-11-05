@@ -1,5 +1,6 @@
 package com.doosane.myselectshop.repository;
 
+import com.doosane.myselectshop.dto.ProductResponseDto;
 import com.doosane.myselectshop.entity.Product;
 import com.doosane.myselectshop.entity.User;
 import org.springframework.data.domain.Page;
@@ -12,4 +13,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     Page<Product> findAllByUser(User user, Pageable pageable);
 
+    Page<Product> findAllByUserAndProductFolderList_FolderId(User user, Long folderId, Pageable pageable);
 }
