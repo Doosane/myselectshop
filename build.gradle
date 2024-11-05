@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.doosane'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.7-myselectshop'
 
 java {
     toolchain {
