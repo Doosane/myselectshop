@@ -4,9 +4,14 @@ package com.doosane.myselectshop.controller;
 import com.doosane.myselectshop.dto.SignupRequestDto;
 import com.doosane.myselectshop.dto.UserInfoDto;
 import com.doosane.myselectshop.entity.UserRoleEnum;
+import com.doosane.myselectshop.jwt.JwtUtil;
 import com.doosane.myselectshop.security.UserDetailsImpl;
 import com.doosane.myselectshop.service.FolderService;
+import com.doosane.myselectshop.service.KakaoService;
 import com.doosane.myselectshop.service.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,10 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,6 +32,7 @@ public class UserController {
 
     private final UserService userService;
     private final FolderService folderService;
+    private final KakaoService kakaoService;
 
     @GetMapping("/user/login-page")
     public String loginPage() {
@@ -45,7 +48,7 @@ public class UserController {
     public String signup(@Valid SignupRequestDto requestDto, BindingResult bindingResult) {
         // Validation 예외처리
         List<FieldError> fieldErrors = bindingResult.getFieldErrors();
-        if(fieldErrors.size() > 0) {
+        if (fieldErrors.size() > 0) {
             for (FieldError fieldError : bindingResult.getFieldErrors()) {
                 log.error(fieldError.getField() + " 필드 : " + fieldError.getDefaultMessage());
             }
@@ -76,5 +79,16 @@ public class UserController {
         return "index :: #fragment";
 
         // thymeleaf 사용하면서 동적으로 넣어주기 위해서 추가함
+    }
+
+    @GetMapping("/user/kakao/callback")
+    public String kakaoLogin(@RequestParam String code, HttpServletResponse response) throws JsonProcessingException {
+        String token = kakaoService.kakaoLogin(code);
+
+        Cookie cookie = new Cookie(JwtUtil.AUTHORIZATION_HEADER, token);
+        cookie.setPath("/");
+        response.addCookie(cookie);
+
+        return "redirect:/";
     }
 }
