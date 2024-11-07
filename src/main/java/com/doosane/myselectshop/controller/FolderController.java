@@ -2,14 +2,10 @@ package com.doosane.myselectshop.controller;
 
 import com.doosane.myselectshop.dto.FolderRequestDto;
 import com.doosane.myselectshop.dto.FolderResponseDto;
-import com.doosane.myselectshop.exception.RestApiException;
 import com.doosane.myselectshop.security.UserDetailsImpl;
 import com.doosane.myselectshop.service.FolderService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,14 +30,5 @@ public class FolderController {
         return folderService.getFolders(userDetails.getUser());
     }
 
-    @ExceptionHandler({IllegalArgumentException.class})
-    public ResponseEntity<RestApiException> handleException(IllegalArgumentException ex) {
-        RestApiException restApiException = new RestApiException(ex.getMessage(), HttpStatus.BAD_REQUEST.value());
-        return new ResponseEntity<>(
-                // HTTP body
-                restApiException,
-                // HTTP status code
-                HttpStatus.BAD_REQUEST
-        );
-    }
+
 }
