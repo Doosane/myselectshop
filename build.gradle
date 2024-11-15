@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.doosane'
-version = '0.0.7-myselectshop'
+version = 'v2.3.0'
 
 java {
     toolchain {
@@ -43,6 +43,8 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+
 }
 
 tasks.named('test') {
