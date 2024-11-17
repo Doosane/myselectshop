@@ -75,6 +75,7 @@ public class WebSecurityConfig {
         );
 
         // 필터 관리
+//        http.addFilterBefore(rateLimitingFilter, JwtAuthenticationFilter.class); // RateLimitingFilter를 먼저 실행
         http.addFilterBefore(jwtAuthorizationFilter(), JwtAuthenticationFilter.class);
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
